@@ -1,9 +1,11 @@
+from typing import List
+
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
+
 from app.database import get_db
-from app.schemas.user import UserCreate, UserUpdate, UserResponse
+from app.schemas.user import UserCreate, UserResponse, UserUpdate
 from app.services import user_service
-from typing import List
 
 router = APIRouter(prefix="/users", tags=["users"])
 
@@ -27,11 +29,11 @@ def create_new_user(user: UserCreate, db: Session = Depends(get_db)):
     existing_email = user_service.get_user_by_email(db, user.email)
     if existing_email:
         raise HTTPException(status_code=400, detail="Email already registered")
-    
+
     existing_username = user_service.get_user_by_username(db, user.username)
     if existing_username:
         raise HTTPException(status_code=400, detail="Username already taken")
-    
+
     return user_service.create_user(db, user)
 
 
@@ -48,3 +50,10 @@ def delete_existing_user(user_id: int, db: Session = Depends(get_db)):
     deleted = user_service.delete_user(db, user_id)
     if not deleted:
         raise HTTPException(status_code=404, detail="User not found")
+
+
+@router.post(
+    "/bulk", response_model=List[UserResponse], status_code=status.HTTP_201_CREATED
+)
+def bulk_create_users(users: List[UserCreate], db: Session = Depends(get_db)):
+    return user_service.bulk_create_users(db, users)
