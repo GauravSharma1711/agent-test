@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agent</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Chats</h2>
+                <button id="new-chat-btn" class="new-chat-btn">+ New</button>
+            </div>
+            <div id="conversations-list" class="conversations-list"></div>
+        </aside>
+        
+        <main class="chat-main">
+            <div class="chat-header">
+                <h1 id="chat-title">AI Agent</h1>
+                <button id="delete-chat-btn" class="delete-btn" style="display: none;">Delete Chat</button>
+            </div>
+            
+            <div id="chat-messages" class="chat-messages"></div>
+            
+            <div class="chat-input-container">
+                <input type="text" id="message-input" placeholder="Message AI Agent..." autocomplete="off">
+                <button id="send-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
+                    Send
+                </button>
+            </div>
+        </main>
+        
+        <aside class="memories-sidebar">
+            <div class="sidebar-header">
+                <h2>Memories</h2>
+            </div>
+            <div id="memories-list" class="memories-list"></div>
+        </aside>
+    </div>
+    
+    <script src="/static/app.js"></script>
+</body>
+</html>

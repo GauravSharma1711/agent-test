@@ -1,4 +1,3 @@
-# app/models/__init__.py
-from app.models.user import User
+from app.models.models import Conversation, Message, Memory
 
-__all__ = ["User"]
+__all__ = ["Conversation", "Message", "Memory"]
