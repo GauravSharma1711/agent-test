@@ -4,7 +4,7 @@ from datetime import datetime
 
 from langchain_core.messages import BaseMessage, HumanMessage, AIMessage, SystemMessage
 from langchain_core.tools import tool
-from langchain_openai import ChatOpenAI
+from langchain_google_genai import ChatGoogleGenerativeAI
 from langgraph.graph import StateGraph, END
 from langgraph.graph.message import add_messages
 from langgraph.prebuilt import ToolNode
@@ -130,15 +130,10 @@ class Agent:
         self.tools_handler = AgentTools(db, conversation_id)
         self.tools = self.tools_handler.create_tools()
         
-        self.llm = ChatOpenAI(
-            model=settings.OPENROUTER_MODEL,
+        self.llm = ChatGoogleGenerativeAI(
+            model=settings.GEMINI_MODEL,
             temperature=0.7,
-            api_key=settings.OPENROUTER_API_KEY,
-            base_url="https://openrouter.ai/api/v1",
-            default_headers={
-                "HTTP-Referer": "https://localhost:8000",
-                "X-Title": "AI Agent"
-            }
+            google_api_key=settings.GEMINI_API_KEY,
         ).bind_tools(self.tools)
         
         self.graph = self._build_graph()
